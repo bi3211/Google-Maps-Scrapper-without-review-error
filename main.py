@@ -110,13 +110,16 @@ def main():
                 intro_list.append("None Found")
             
             if page.locator(reviews_count_xpath).count() > 0:
-                temp = page.locator(reviews_count_xpath).inner_text()
-                temp=temp.replace('(','').replace(')','').replace(',','')
-                Reviews_Count=int(temp)
-                reviews_c_list.append(Reviews_Count)
+               temp = page.locator(reviews_count_xpath).inner_text()
+               temp = temp.replace('(', '').replace(')', '').replace(',', '').replace('.', '')  
+            try:
+               Reviews_Count = int(temp)
+            except ValueError:
+               Reviews_Count = 0  # Ou outro valor que faça sentido em caso de falha
+               reviews_c_list.append(Reviews_Count)
             else:
-                Reviews_Count = ""
-                reviews_c_list.append(Reviews_Count)
+               Reviews_Count = 0  
+               reviews_c_list.append(Reviews_Count)
 
             if page.locator(reviews_average_xpath).count() > 0:
                 temp = page.locator(reviews_average_xpath).inner_text()
